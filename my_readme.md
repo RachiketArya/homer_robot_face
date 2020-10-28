@@ -1,0 +1,66 @@
+## Steps for installation
+
+```sh
+mkdir -p face_ws/src
+git clone https://github.com/homer-robotics/homer_robot_face.git
+cd ..
+```
+(Cloning of another face-package may be needed: homer_tts)
+
+Following are instrcutions from a stack exchange [answer](https://askubuntu.com/questions/1082722/unable-to-locate-package-libesd0-dev-on-ubuntu-18-04):
+
+```sh
+sudo nano /etc/apt/sources.list
+```
+
+Add the following lines at the end and press <kbd>Ctrl</kbd> + <kbd>C</kbd>:
+```sh
+deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe
+deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main universe
+```
+Then run:
+```sh
+sudo apt-get update && sudo apt-get install libesd0-dev
+```
+
+Finally, in the workspace, run the following:
+```sh
+rosdep install --from-paths src --ignore-src --rosdistro=melodic
+```
+
+Now, in line 29 of ```CMakeLists.txt```, add ```-fopenmp``` so the the line looks like the following:
+```sh
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fopenmp")
+```
+
+Now run the following in the root folder of the workspace:
+
+```sh
+catkin_make
+source devel/setup.bash
+roslaunch homer_robot_face robot_face.launch
+```
+
+
+## For text to speech
+Install the necessary packages:
+```sh
+sudo apt-get install libttspico-utils
+```
+Clone the following package in ```[workspace]/src```:
+```sh
+git clone https://github.com/homer-robotics/homer_tts.git
+```
+
+Temporary fix for build error in ```MarryTTs.cfg```:
+uncomment line 13 and comment line 48
+
+After ```catkin_make``` and sourcing the environment, run:
+```sh
+roslaunch homer_tts homer_pico2wave.launch
+```
+
+## Note
+To change the face to male, the path of the config file needs to be changed in the ```MainWindow.cpp``` file Line 57.
+To change the character expression, publish the character faces listed in ```TalkingHead.cpp``` (":), :( etc") on the topic ```/robot_face/text_out``` and then publish on ```/robot_face/talking_finished``` to "clear the buffer". Or publish directly onto ```/speak/goal``` if the text to speech has been launched.
+After launching text to speech node, publish to ```/speak/goal``` with distinct id numbers and a string of words separated only by " ".

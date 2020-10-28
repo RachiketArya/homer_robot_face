@@ -72,6 +72,7 @@ void FestivalGenerator::callbackSynth( const std_msgs::String::ConstPtr& msg )
     text_for_synth_ = text_processor_.prepareText( msg->data, TextProcessor::GENERATE );
     if( text_for_synth_.length() > 0 )
     {
+        // ROS_ERROR("Inside FestivalGenerator");
         synth_phonemes_ = true;
         synth_words_ = true;
         if(!file_ready_)

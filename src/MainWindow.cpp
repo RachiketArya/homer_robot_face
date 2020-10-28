@@ -31,15 +31,19 @@ MainWindow::MainWindow( QWidget* parent ) :
     talking_head_( 0 ),
     initialized_(false)
 {
+    // FestivalSynthesizer* festival_synthesizer_ = new FestivalSynthesizer();
+    // festival_synthesizer_ -> run();
+
     ROS_INFO("Creating MainWindow..");
 
         //TODO FIXME
     windowHeight_ = 800;
     windowWidth_ = 600;
 
-
-    int width = 600;
-    int height = 800;
+    QDesktopWidget widget;
+    QRect mainScreenSize = widget.screenGeometry(widget.primaryScreen());
+    int width = mainScreenSize.width();
+    int height = mainScreenSize.height();
     int window_rotation = 0;
 
     QBoxLayout* center_layout;
@@ -54,12 +58,12 @@ MainWindow::MainWindow( QWidget* parent ) :
     try
     {
         std::vector< std::vector<float> > material_colors;
-        std::string filename = ros::package::getPath("homer_robot_face")+"/config/config.cfg";
+        std::string filename = ros::package::getPath("homer_robot_face")+"/config/config_GiGo.cfg";
         const char* cfgFilename = filename.c_str();
 
         Config cfg(cfgFilename);
-        width = cfg.get("Window Width");
-        height = cfg.get("Window Height");
+        // width = cfg.get("Window Width");
+        // height = cfg.get("Window Height");
         std::string mesh_filename = cfg.get("Mesh Filename");
         material_colors.push_back(cfg.get("Head Color"));
         material_colors.push_back(cfg.get("Iris Color"));

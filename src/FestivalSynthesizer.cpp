@@ -60,10 +60,11 @@ void FestivalSynthesizer::initFestival()
 
         Config cfg(cfgFilename);
         std::string voice = cfg.get("Voice");
-	voice == "female";
+	    // voice == "female";
 
         if ( voice == "female" )
         {
+            std::cout << "Applying female voice" << std::endl;
             festival_eval_command( "(voice_us1_mbrola)" );
             festival_eval_command( "(defvar Styles '((default 140 22 1.0)) \"Available voice styles\")" );
             festival_eval_command( "(defvar style_default 'default \"Default voice style\")" );
@@ -91,6 +92,7 @@ void FestivalSynthesizer::initFestival()
 		}
 		else
 		{
+            std::cout << "Default voice chosen" << std::endl;
 			std::string command = "("+voice+")";
             festival_eval_command( command.c_str() );
 		}

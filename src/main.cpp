@@ -40,6 +40,7 @@ int main( int argc, char *argv[] )
     icon.addFile(QString::fromUtf8("../images/logo.png"), QSize(), QIcon::Normal, QIcon::Off);
     window.setWindowIcon(icon);
 
+    window.setWindowState(Qt::WindowFullScreen);
     window.show();  //has to be called before ros::init
 
     // Check for and move to second screen

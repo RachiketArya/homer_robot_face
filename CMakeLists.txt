@@ -26,7 +26,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/share/OGRE/cmake/modules)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${ogre_PACKAGE_PATH}/ogre/include/OGRE")
 # QT related
 set(QT_USE_QTXML TRUE)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fopenmp")
 
 
 #for face output

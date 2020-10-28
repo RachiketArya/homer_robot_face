@@ -23,12 +23,14 @@
 #define TALKING_HEAD_INCLUDE_MAINWINDOW_H_
 
 #include <QtWidgets>
+#include <QDesktopWidget>
 
 #include <ros/ros.h>
 
 #include <homer_robot_face/TalkingHead.h>
 #include <homer_robot_face/TextOutDisplay.h>
 #include <homer_robot_face/FestivalGenerator.h>
+#include <homer_robot_face/FestivalSynthesizer.h>
 #include <homer_robot_face/ImageDisplay.h>
 
 /**

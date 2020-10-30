@@ -2,6 +2,7 @@
 
 ```sh
 mkdir -p face_ws/src
+cd face_ws/src
 git clone https://github.com/RachiketArya/homer_robot_face.git
 cd ..
 ```
@@ -82,3 +83,23 @@ In Ubuntu 18.04 (Xubuntu Minimal Desktop), create /etc/lightdm/lightdm.conf and 
 autologin-user=<username>
 autologin-user-timeout=0
 I couldn't get it working through the lightdm.conf.d folder.
+
+# For script to work on booting up:
+Download the package containing gnome-session-propoerties and open it to add the startup command saying /bin/bash [location].launch
+
+And add the following command:
+```sh
+/bin/bash -c "sleep 15 && /bin/bash /home/u buntu/homer_face.sh"
+```
+
+
+ORRRR
+
+Follow the two links:
+https://www.stuffaboutcode.com/2012/06/raspberry-pi-run-program-at-start-up.html
+https://wiki.debian.org/LSBInitScripts
+
+
+Useful commands for pi:
+alsamixer (for audio)
+sudo raspi-config

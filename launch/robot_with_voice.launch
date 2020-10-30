@@ -4,6 +4,6 @@
     <node ns="/robot_face" name="RobotFace" pkg="homer_robot_face" type="RobotFace" cwd="node" respawn="true" output="screen"/>
 
     <rosparam command="load" file="$(find homer_tts)/config/mary_tts.yaml" />
-	<node name="homer_pico_tts" pkg="homer_tts" type="pico_tts.py"/>
-	<node name="speak_action" pkg="homer_tts" type="speak"/>
+	<node name="homer_pico_tts" pkg="homer_tts" type="pico_tts.py" respawn="true"/>
+	<node name="speak_action" pkg="homer_tts" type="speak" respawn="true"/>
 </launch>

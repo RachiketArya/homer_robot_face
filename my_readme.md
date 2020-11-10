@@ -71,7 +71,7 @@ roslaunch homer_tts homer_pico2wave.launch
 ## Note
 To change the face to male, the path of the config file needs to be changed in the ```MainWindow.cpp``` file Line 57.
 To change the character expression, publish the character faces listed in ```TalkingHead.cpp``` (":), :( etc") on the topic ```/robot_face/text_out``` and then publish on ```/robot_face/talking_finished``` to "clear the buffer". Or publish directly onto ```/speak/goal``` if the text to speech has been launched.
-After launching text to speech node, publish to ```/speak/goal``` with distinct id numbers and a string of words separated only by " ".
+After launching text to speech node, publish to ```/speak/goal``` a string of words separated only by " ".
 
 
 For a new raspberry pi 4 with the ubiquity 2020 16.04 image installed, do the following to enable auto-login:
@@ -89,7 +89,7 @@ Download the package containing gnome-session-propoerties and open it to add the
 
 And add the following command:
 ```sh
-/bin/bash -c "sleep 15 && /bin/bash /home/u buntu/homer_face.sh"
+/bin/bash -c "sleep 15 && /bin/bash /home/ubuntu/homer_face.sh"
 ```
 
 
@@ -103,3 +103,72 @@ https://wiki.debian.org/LSBInitScripts
 Useful commands for pi:
 alsamixer (for audio)
 sudo raspi-config
+
+## Connect ROS on two macines
+1. Make sure both the machines have the same identification of the ros master by running the following command (with the IP address of the machine running the ROS master) on both the machines:
+
+```ROS_MASTER_URI=http://172.16.30.103:11311```
+
+2. On the machine that is not running the ROS master, correct the face that the machine's address can't be resolved by running the following command:
+
+```export ROS_IP=172.16.30.223```
+
+More help can be found at [ROS Network Setup](http://wiki.ros.org/ROS/NetworkSetup) page.
+
+Meanwhile for openeing a netcat chat across the machines, start listening on a particular port on the first machine:
+
+```netcat -l 1234```
+
+and subscribe to that machine's chat on another machine via:
+
+```netcat [IP ADDRESS] 1234```
+
+eg.
+
+```netcat 172.16.30.223 1234```
+
+# Useful commands:
+```sh
+ps auxf
+ls /proc/[PID]
+cat /usr/sbin/homer_face-start
+```
+
+To set the IP address manually:
+```sh
+sudo ip addr 192.168.1.113/32 dev eth0
+sudo ifconfig eth0 netmask 255.255.255.0
+```
+
+
+## Following is probably the best idea to change the IP address
+
+Or change the following file:
+```sh
+sudo nano /etc/network/interfaces
+```
+
+```sh
+# The primary network interface
+auto eth0
+iface eth0 inet static
+address 192.168.2.33
+gateway 192.168.2.1
+netmask 255.255.255.0
+network 192.168.2.0
+broadcast 192.168.2.255
+```
+and restart the networking
+```sh
+sudo /etc/init.d/networking restart
+```
+
+
+
+# Current Workflow:
+1. Set ROS_MASTER_URI and ROS_IP
+2. Run multisim.launch
+3. Run UI Node
+4. Run magni compartment node
+
+TODO: Configuration of the other Raspberry Pi for compartment

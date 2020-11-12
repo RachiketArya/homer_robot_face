@@ -136,7 +136,7 @@ cat /usr/sbin/homer_face-start
 
 To set the IP address manually:
 ```sh
-sudo ip addr 192.168.1.113/32 dev eth0
+sudo ip addr add 192.168.1.113/32 dev eth0
 sudo ifconfig eth0 netmask 255.255.255.0
 ```
 
